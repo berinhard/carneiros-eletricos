@@ -3,7 +3,7 @@
 ```bash
 git clone git@github.com:berinhard/carneiros-eletricos.git
 mkvirtualenv carneiros-eletricos -p /usr/bin/python3.6.5
-cd caneiros-eletricso
+cd caneiros-eletricos
 cp env.example .env  # you'll have to set
 vi .env  # you'll have to set at least the DARKNET_DIR variable to your path
 pip install -r requirements.txt
