@@ -1,8 +1,9 @@
 #!/usr/bin/env python
+import click
+import os
+import random
 import shlex
 import subprocess
-import os
-import click
 from decouple import config
 from unipath import Path
 
@@ -58,6 +59,41 @@ class NightmareConfig():
         name = image_path.name.split('.')[0]
         return self.out_dir.listdir("{}*".format(name))
 
+    def random_layers(self, choice_range=None):
+        choice_range = choice_range or range(1, 20)
+        self.layers = random.choice(choice_range)
+
+    def random_rounds(self, choice_range=None):
+        choice_range = choice_range or range(1, 30)
+        self.rounds = random.choice(choice_range)
+
+    def random_iters(self, choice_range=None):
+        choice_range = choice_range or range(1, 20)
+        self.iters = random.choice(choice_range)
+
+    def random_range(self, choice_range=None):
+        choice_range = choice_range or range(1, self.layers)
+        self.range = random.choice(choice_range)
+
+    def random_octaves(self, choice_range=None):
+        choice_range = choice_range or range(1, 20)
+        self.octaves = random.choice(choice_range)
+
+    def random_zoom(self, choice_range=None):
+        choice_range = choice_range or range(-1, 1)
+        self.zomm = random.choice(choice_range)
+
+    def random_rate(self):
+        self.rate = random.random()
+
+    def force_all_random(self):
+        self.random_layers()
+        self.random_rounds()
+        self.random_iters()
+        self.random_range()
+        self.random_octaves()
+        self.random_rate()
+        self.random_zoom()
 
 
 def deep_dream(image_path, config):
@@ -91,6 +127,7 @@ def dream_on_dir(images_dir, out_dir):
 
     for image in images_dir.listdir():
         config = NightmareConfig(out_dir=out_dir)
+        config.force_all_random()
         deep_dream(image, config)
         for d in config.list_output_for_image(image):
             print("  New dream: {}".format(d))
