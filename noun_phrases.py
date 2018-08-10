@@ -15,7 +15,7 @@ def extract_noun_phrases(infile, outfile):
 
 
     # chunking baseado em https://www.nltk.org/book/ch07.html
-    grammar = "NP: {<DT>?<JJ>*<NN>*<JJ>*}"
+    grammar = "NP: {<DT>?<JJ.*>*<NN.*>*<JJ.*>*}"
 
     cp = nltk.RegexpParser(grammar)
 
