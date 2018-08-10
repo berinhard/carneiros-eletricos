@@ -25,7 +25,7 @@ def extract_noun_phrases(infile, outfile):
         for subtree in sentence_tree.subtrees():
             if subtree.label() == "NP":
                 NPs.append(subtree)
-                np = ' '.join(w[0][0] for w in subtree.pos())
+                np = ' '.join(w[0] for w in subtree.leaves())
                 flat_noun_phrases.append(np)
                 outfile.write(np)
                 outfile.write('\n')
