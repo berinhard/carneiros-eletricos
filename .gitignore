@@ -9,3 +9,7 @@
 *.sqlite3
 *.map
 data/*
+lib/
+bin/
+share/
+include/

@@ -12,7 +12,13 @@ SEARCH_URL = "https://api.cognitive.microsoft.com/bing/v7.0/images/search"
 
 def get_search_results(search_term):
     headers = {"Ocp-Apim-Subscription-Key": AZURE_SUBSCRIPTION_KEY}
-    params = {"q": search_term, "license": "public", "imageType": "photo"}
+    params = {
+        "q": search_term,
+        "license": "public",
+        "imageType": "photo",
+        "maxWidth": "900",
+        "maxHeight": "900",
+    }
     response = requests.get(SEARCH_URL, headers=headers, params=params)
     response.raise_for_status()
     search_results = response.json()
