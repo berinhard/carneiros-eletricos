@@ -45,7 +45,7 @@ class NightmareConfig():
             'nightmare',
             VGG_CONF,
             VGG_WEIGHTS,
-            image_path,
+            image_path.absolute(),
             self.layers,
             '-rounds', self.rounds,
             '-iters', self.iters,
