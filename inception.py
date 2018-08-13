@@ -39,9 +39,13 @@ class NightmareConfig():
         self.zoom = kwargs.get('zomm', 1)
         self.rotate = kwargs.get('rotate', 0)
 
-    @property
-    def cmd_args(self):
+    def cmd_str(self, image_path):
         args = [
+            DARKNET_BIN,
+            'nightmare',
+            VGG_CONF,
+            VGG_WEIGHTS,
+            image_path,
             self.layers,
             '-rounds', self.rounds,
             '-iters', self.iters,
@@ -53,7 +57,7 @@ class NightmareConfig():
             '-rotate', self.rotate,
             '-prefix', self.out_dir
         ]
-        return [str(a) for a in args]
+        return ' '.join([str(a) for a in args])
 
     def list_output_for_image(self, image_path):
         name = image_path.name.split('.')[0]
@@ -97,13 +101,7 @@ class NightmareConfig():
 
 
 def deep_dream(image_path, config):
-    command = ' '.join([
-        DARKNET_BIN,
-        'nightmare',
-        VGG_CONF,
-        VGG_WEIGHTS,
-        image_path,
-    ] + config.cmd_args)
+    command = config.cmd_str(image_path)
     print('Exec --> {}'.format(command))
 
     detect = subprocess.Popen(
