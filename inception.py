@@ -31,7 +31,7 @@ class NightmareConfig():
         self.out_dir = out_dir
         self.layers = kwargs.get('layers', 1)
         self.rounds = kwargs.get('rounds', 1)
-        self.iters = kwargs.get('iters', 1)
+        self.iters = kwargs.get('iters', 10)
         self.range = kwargs.get('range', 1)
         self.octaves = kwargs.get('octaves', 4)
         self.rate = kwargs.get('rate', 0.05)
@@ -55,7 +55,7 @@ class NightmareConfig():
             '-thresh', self.thresh,
             '-zoom', self.zoom,
             '-rotate', self.rotate,
-            '-prefix', self.out_dir
+            '-prefix', self.out_dir.absolute()
         ]
         return ' '.join([str(a) for a in args])
 
@@ -68,11 +68,11 @@ class NightmareConfig():
         self.layers = random.choice(choice_range)
 
     def random_rounds(self, choice_range=None):
-        choice_range = choice_range or range(1, 30)
+        choice_range = choice_range or range(1, 20)
         self.rounds = random.choice(choice_range)
 
     def random_iters(self, choice_range=None):
-        choice_range = choice_range or range(1, 20)
+        choice_range = choice_range or range(1, 30)
         self.iters = random.choice(choice_range)
 
     def random_range(self, choice_range=None):
