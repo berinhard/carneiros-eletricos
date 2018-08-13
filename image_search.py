@@ -19,7 +19,7 @@ def get_search_results(search_term):
     return search_results['value']
 
 
-def write_image(image_url):
+def write_image(image_url, download_dir):
     parsed_url = urlparse(image_url)
     name, ext = Path(parsed_url.path).name.split('.')
     name = name[:20]
@@ -27,7 +27,7 @@ def write_image(image_url):
     response = requests.get(image_url)
     response.raise_for_status()
 
-    output_image = Path('/', 'tmp', '{}.{}'.format(name, ext))
+    output_image = download_dir.child('{}.{}'.format(name, ext))
     with open(output_image, 'wb') as fd:
         fd.write(response.content)
 
@@ -36,11 +36,15 @@ def write_image(image_url):
 
 @click.command()
 @click.argument('search_term', type=str)
-def search_random_image(search_term):
+@click.option('--download_dir', default='/tmp', help='Download dir', type=click.Path(exists=True))
+def search_random_image(search_term, download_dir):
+    download_dir = Path(download_dir)
+
     images = get_search_results(search_term)
     random_image = random.choice(images)
-    downloaded_image = write_image(random_image['contentUrl'])
+    downloaded_image = write_image(random_image['contentUrl'], download_dir)
     print('New image at {}'.format(downloaded_image))
+    return downloaded_image
 
 
 if __name__ == '__main__':
