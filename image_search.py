@@ -34,9 +34,6 @@ def write_image(image_url, download_dir):
     return output_image
 
 
-@click.command()
-@click.argument('search_term', type=str)
-@click.option('--download_dir', default='/tmp', help='Download dir', type=click.Path(exists=True))
 def search_random_image(search_term, download_dir):
     download_dir = Path(download_dir)
 
@@ -47,5 +44,12 @@ def search_random_image(search_term, download_dir):
     return downloaded_image
 
 
+@click.command()
+@click.argument('search_term', type=str)
+@click.option('--download_dir', default='/tmp', help='Download dir', type=click.Path(exists=True))
+def search_random_image_cli(*args, **kwargs):
+    search_random_image(*args, **kwargs)
+
+
 if __name__ == '__main__':
-    search_random_image()
+    search_random_image_cli()
