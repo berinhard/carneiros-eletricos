@@ -41,5 +41,5 @@ nltk.download(['punkt', 'averaged_perceptron_tagger'])
 Make sure the text is in the `data` directory and run:
 
 ```
-$ ./noun_phrases.py <arquivo_de_entrada> <arquivo_de_saida>
+$ ./noun_phrases.py <infile> <outfile>
 ```
