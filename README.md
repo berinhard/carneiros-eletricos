@@ -27,3 +27,19 @@ Usage: inception.py [OPTIONS] IMAGES_DIR OUT_DIR
 Options:
   --help  Show this message and exit.
 ```
+
+
+## Extracting NounPhrases
+
+The `noun_phrases.py` script extracts noun phrases from the text. Just download the necessary nltk data:
+
+
+```
+nltk.download(['punkt', 'averaged_perceptron_tagger'])
+```
+
+Make sure the text is in the `data` directory and run:
+
+```
+$ ./noun_phrases.py <arquivo_de_entrada> <arquivo_de_saida>
+```
