@@ -29,7 +29,7 @@ class NightmareConfig():
 
     def __init__(self, out_dir, *args, **kwargs):
         self.out_dir = out_dir
-        self.layers = kwargs.get('layers', 1)
+        self.layers = kwargs.get('layers', 5)
         self.rounds = kwargs.get('rounds', 1)
         self.iters = kwargs.get('iters', 10)
         self.range = kwargs.get('range', 1)
@@ -45,7 +45,7 @@ class NightmareConfig():
             'nightmare',
             VGG_CONF,
             VGG_WEIGHTS,
-            image_path,
+            image_path.absolute(),
             self.layers,
             '-rounds', self.rounds,
             '-iters', self.iters,
@@ -64,7 +64,7 @@ class NightmareConfig():
         return self.out_dir.listdir("{}*".format(name))
 
     def random_layers(self, choice_range=None):
-        choice_range = choice_range or range(1, 20)
+        choice_range = choice_range or range(1, 15)
         self.layers = random.choice(choice_range)
 
     def random_rounds(self, choice_range=None):
@@ -72,7 +72,7 @@ class NightmareConfig():
         self.rounds = random.choice(choice_range)
 
     def random_iters(self, choice_range=None):
-        choice_range = choice_range or range(1, 30)
+        choice_range = choice_range or range(1, 15)
         self.iters = random.choice(choice_range)
 
     def random_range(self, choice_range=None):
@@ -92,7 +92,7 @@ class NightmareConfig():
 
     def force_all_random(self):
         self.random_layers()
-        self.random_rounds()
+        #self.random_rounds()
         self.random_iters()
         self.random_range()
         self.random_octaves()
@@ -106,8 +106,8 @@ def deep_dream(image_path, config):
 
     detect = subprocess.Popen(
         shlex.split(command),
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
+        #stdout=subprocess.DEVNULL,
+        #stderr=subprocess.DEVNULL,
         cwd=DARKNET_DIR,
     )
     detect.wait()

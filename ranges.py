@@ -27,19 +27,31 @@ def test_parameters(image_path, test_parameter, out_dir):
             config.rounds = i
             deep_dream(image_path, config)
     elif test_parameter == 'iters':
-        for i in range(1, 31):
+        for i in range(1, 15):
             config.iters = i
             deep_dream(image_path, config)
     elif test_parameter == 'range':
         for i in range(1, 11):
+            dirname = '000{}'.format(i)
+            path = out_dir.child(dirname)
+            os.mkdir(path)
+            config = NightmareConfig(path)
             config.range = i
             deep_dream(image_path, config)
     elif test_parameter == 'octaves':
         for i in range(1, 21):
+            dirname = '000{}'.format(i)
+            path = out_dir.child(dirname)
+            os.mkdir(path)
+            config = NightmareConfig(path)
             config.octaves = i
             deep_dream(image_path, config)
     elif test_parameter == 'rate':
         for i in range(1, 11):
+            dirname = '000{}'.format(i)
+            path = out_dir.child(dirname)
+            os.mkdir(path)
+            config = NightmareConfig(path)
             config.rate = i / 10
             deep_dream(image_path, config)
     else:
