@@ -26,11 +26,14 @@ def get_search_results(search_term):
 
 
 def write_image(image_url, download_dir):
+    headers = {
+        "User-Agent": 'Mozilla/5.0 (X11; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0'
+    }
     parsed_url = urlparse(image_url)
     name, ext = Path(parsed_url.path).name.split('.')
     name = name[:20]
 
-    response = requests.get(image_url)
+    response = requests.get(image_url, headers=headers)
     response.raise_for_status()
 
     output_image = download_dir.child('{}.{}'.format(name, ext))
