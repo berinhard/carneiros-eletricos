@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from time import sleep
 import click
 import os
 from unipath import Path
@@ -107,6 +108,7 @@ def read_look_dream(out_dir):
         for d in config.list_output_for_image(image):
             print("  New dream: {}".format(d))
 
+        sleep(10)
         print()
 
 
