@@ -59,6 +59,12 @@ def test_parameters(image_path, test_parameter, out_dir):
             config = NightmareConfig(path)
             config.rate = i / 10
             deep_dream(image_path, config)
+    elif test_parameter == 'thresh':
+        for i in range(1, 51):
+            path = get_iter_dir(out_dir, i)
+            config = NightmareConfig(path)
+            config.thresh = i / 10
+            deep_dream(image_path, config)
     else:
         print('Parameter "{}" is invalid.'.format(test_parameter))
         return
