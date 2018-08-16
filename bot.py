@@ -4,8 +4,8 @@ import click
 import os
 from unipath import Path
 
-from image_search import search_random_image
-from inception import deep_dream, NightmareConfig
+from src.image_search import search_random_image
+from src.inception import deep_dream, NightmareConfig
 
 
 FIRST_PAGE = [
