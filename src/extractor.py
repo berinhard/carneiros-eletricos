@@ -25,7 +25,7 @@ def noun_phrases(text, *args, **kwargs):
                 yield np
 
 def all_words(text, *args, **kwargs):
-    tokenizer = nltk.RegexpTokenizer(r'\w+')
+    tokenizer = nltk.RegexpTokenizer(r'[\w\d\'-]+')
     return tokenizer.tokenize(text)
 
 def ngram(text, *args, **kwargs):
@@ -51,6 +51,7 @@ available_functions = {
     'ngram': ngram,
     'ngrams': extract_ngrams,
 }
+
 
 @click.command()
 @click.argument('infile', type=click.File('r'))
