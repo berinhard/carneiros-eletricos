@@ -56,7 +56,10 @@ available_functions = {
 @click.command()
 @click.argument('infile', type=click.File('r'))
 @click.argument('outfile', type=click.File('w'))
-@click.option('--function', type=str, default='noun_phrases')
+@click.option(
+    '--function', default='noun_phrases',
+    type=click.Choice(list(available_functions.keys()))
+)
 @click.option('--ngram-size', type=int, default=2)
 @click.option('--min-ngram-size', type=int, default=1)
 def extract_words(infile, outfile, function, *args, **kwargs):
