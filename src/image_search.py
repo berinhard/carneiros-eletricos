@@ -25,31 +25,32 @@ def get_search_results(search_term):
     return search_results['value']
 
 
-def write_image(image_url, download_dir):
+def write_image(image_url, download_dir, output_name=''):
     headers = {
         "User-Agent": 'Mozilla/5.0 (X11; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0'
     }
     parsed_url = urlparse(image_url)
-    name, ext = Path(parsed_url.path).name.split('.')
+    name, ext = Path(parsed_url.path).name.split('.')  # TODO: ValueError: not enough values to unpack (expected 2, got 1)
     name = name[:20]
 
     response = requests.get(image_url, headers=headers)
     response.raise_for_status()
 
-    output_image = download_dir.child('{}.{}'.format(name, ext))
+    output_name = output_name or name
+    output_image = download_dir.child('{}.{}'.format(output_name, ext))
     with open(output_image, 'wb') as fd:
         fd.write(response.content)
 
     return output_image
 
 
-def search_random_image(search_term, download_dir):
+def search_random_image(search_term, download_dir, output_name=''):
     download_dir = Path(download_dir)
 
     images = get_search_results(search_term)
-    random_image = random.choice(images)
-    downloaded_image = write_image(random_image['contentUrl'], download_dir)
-    print('New image at {}'.format(downloaded_image))
+    random_image = random.choice(images)  # TODO: What if it raises IndexError?
+    downloaded_image = write_image(random_image['contentUrl'], download_dir, output_name)
+
     return downloaded_image
 
 
