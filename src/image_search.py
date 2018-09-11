@@ -15,10 +15,11 @@ def get_search_results(search_term):
     headers = {"Ocp-Apim-Subscription-Key": AZURE_SUBSCRIPTION_KEY}
     params = {
         "q": search_term,
-        "license": "public",
+        "license": "Any",
         "imageType": "photo",
         "maxWidth": "900",
         "maxHeight": "900",
+        'count': 150,
     }
     response = requests.get(SEARCH_URL, headers=headers, params=params)
     response.raise_for_status()
