@@ -47,7 +47,7 @@ def read(reader_func, content, out_dir):
                     image = search_random_image(text, reader_out_dir, image_name)
                 else:
                     image = dir_content[0]
-            except (IndexError, ValueError) as e:
+            except IndexError as e:
                 image = ''
 
             row['image_file'] = image

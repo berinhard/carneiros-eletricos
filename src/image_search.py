@@ -2,6 +2,7 @@
 import click
 import requests
 import random
+import magic
 from unipath import Path
 from urllib.parse import urlparse
 from decouple import config
@@ -29,13 +30,18 @@ def write_image(image_url, download_dir, output_name=''):
     headers = {
         "User-Agent": 'Mozilla/5.0 (X11; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0'
     }
-    parsed_url = urlparse(image_url)
-    name, ext = Path(parsed_url.path).name.split('.')  # TODO: ValueError: not enough values to unpack (expected 2, got 1)
-    name = name[:20]
-
     response = requests.get(image_url, headers=headers)
     response.raise_for_status()
 
+    parsed_url = urlparse(image_url)
+    try:
+        name, ext = Path(parsed_url.path).name.split('.')
+    except ValueError:
+        name = Path(parsed_url.path).name
+        mimetype = magic.from_buffer(response.content, mime=True)
+        ext = mimetype.split('/')[-1]
+
+    name = name[:20]
     output_name = output_name or name
     output_image = download_dir.child('{}.{}'.format(output_name, ext))
     with open(output_image, 'wb') as fd:
