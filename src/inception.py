@@ -46,6 +46,12 @@ class NightmareConfig():
             VGG_CONF,
             VGG_WEIGHTS,
             image_path.absolute(),
+        ] + self.parameters + ['-prefix', self.out_dir.absolute()]
+        return ' '.join([str(a) for a in args])
+
+    @property
+    def parameters(self):
+        return [
             self.layers,
             '-rounds', self.rounds,
             '-iters', self.iters,
@@ -55,9 +61,7 @@ class NightmareConfig():
             '-thresh', self.thresh,
             '-zoom', self.zoom,
             '-rotate', self.rotate,
-            '-prefix', self.out_dir.absolute()
         ]
-        return ' '.join([str(a) for a in args])
 
     def list_output_for_image(self, image_path):
         name = image_path.name.split('.')[0]
