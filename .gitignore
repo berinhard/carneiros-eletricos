@@ -13,5 +13,7 @@ lib/
 bin/
 share/
 include/
-results/out*
+results/
 result/
+data/
+out_reader/
