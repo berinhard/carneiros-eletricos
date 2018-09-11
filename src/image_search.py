@@ -31,6 +31,7 @@ def write_image(image_url, download_dir, output_name=''):
     headers = {
         "User-Agent": 'Mozilla/5.0 (X11; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0'
     }
+    # TODO requests.exceptions.SSLError: HTTPSConnectionPool(host='www.ebookarchive.org', port=443): Max retries exceeded with url: /services/img/BlackSteelPeacock-FaceTonesbloodControl (Caused by SSLError(CertificateError("hostname 'www.ebookarchive.org' doesn't match either of '*.archive.org', 'archive.org'",),))
     response = requests.get(image_url, headers=headers)
     response.raise_for_status()
 
