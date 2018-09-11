@@ -26,18 +26,22 @@ def dream_on_csv(csv_file, out_dir):
 
     reader = csv.DictReader(csv_file, fieldnames)
     for row in reader:
-        config.force_all_random()
-        image = Path(row['image_file'])
-        deep_dream(image, config)
+        image_file = row['image_file'].strip()
+        outfile, parameters = '', ''
 
-        outfile = ''
-        outfiles = config.list_output_for_image(image)
-        if outfiles:
-            outfile = outfiles[0]
+        if image_file:
+            config.force_all_random()
+            image = Path(row['image_file'])
+            deep_dream(image, config)
+
+            parameters = ' '.join([str(p) for p in config.parameters])
+            outfiles = config.list_output_for_image(image)
+            if outfiles:
+                outfile = outfiles[0]
 
         out_row = row.copy()
         out_row['dream_file'] = outfile
-        out_row['parameters'] = ' '.join([str(p) for p in config.parameters])
+        out_row['parameters'] = parameters
         out_csv_rows.append(out_row)
 
     output_fieldnames = fieldnames + ['dream_file', 'parameters']
