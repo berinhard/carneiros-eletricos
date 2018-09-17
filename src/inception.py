@@ -80,8 +80,8 @@ class NightmareConfig():
         self.iters = random.choice(choice_range)
 
     def random_range(self, choice_range=None):
-        choice_range = choice_range or range(1, self.layers)
-        self.range = random.choice(choice_range)
+        choice_range = choice_range or range(0, self.layers)
+        self.range = random.choice(choice_range) + 1
 
     def random_octaves(self, choice_range=None):
         choice_range = choice_range or range(1, 20)
