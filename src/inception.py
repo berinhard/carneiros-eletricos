@@ -45,7 +45,7 @@ class NightmareConfig():
             'nightmare',
             VGG_CONF,
             VGG_WEIGHTS,
-            image_path.absolute(),
+            '"{}"'.format(image_path.absolute()),
         ] + self.parameters + ['-prefix', self.out_dir.absolute()]
         return ' '.join([str(a) for a in args])
 
