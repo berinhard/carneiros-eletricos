@@ -29,7 +29,7 @@ class NightmareConfig():
 
     def __init__(self, out_dir, *args, **kwargs):
         self.out_dir = out_dir
-        self.layers = kwargs.get('layers', 5)
+        self.layers = kwargs.get('layers', 15)
         self.rounds = kwargs.get('rounds', 1)
         self.iters = kwargs.get('iters', 10)
         self.range = kwargs.get('range', 1)
